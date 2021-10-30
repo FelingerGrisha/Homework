@@ -1,11 +1,12 @@
-programm = open("input.txt", "r").read().strip()
+file = open("input.txt", "r")
+programm = file.read().strip()
 programm = programm.split(",")
 
 for i in range(len(programm)):
     if(programm[i].isdigit()):
         programm[i] = int(programm[i])
     else:
-        print("Во входном файле была найдена ошибка, в файле должны содержаться только целые числа от 0, разделённые запятой")
+        print("Во входной файле была найдена ошибка, в файле должны содержаться только целые числа, разделённые запятой")
         exit(1)
 
 i = 0
@@ -28,4 +29,11 @@ while i < len(programm):
 
     i+= 1
 
-print(programm)
+file.close()
+for i in range(len(programm)):
+    programm[i] = str(programm[i])
+
+file = open("input.txt", "w")
+programm = ",".join(programm)
+file.write(programm)
+file.close()
