@@ -30,10 +30,12 @@ while i < len(programm):
     i+= 1
 
 file.close()
+
 for i in range(len(programm)):
     programm[i] = str(programm[i])
 
-file = open("input.txt", "w")
 programm = ",".join(programm)
+
+file = open("input.txt", "w")
 file.write(programm)
 file.close()
