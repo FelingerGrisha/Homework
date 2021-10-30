@@ -31,7 +31,7 @@ while i < len(programm):
 
     if (programm[i] == 2):
 
-        programm[programm[i + 3]] = programm[programm[i + 1]] + programm[programm[i + 2]]
+        programm[programm[i + 3]] = programm[programm[i + 1]] * programm[programm[i + 2]]
         i += 4
         continue
 
