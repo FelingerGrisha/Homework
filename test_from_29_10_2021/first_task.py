@@ -35,7 +35,7 @@ while i < len(programm):
         i += 4
         continue
 
-    if (programm == 99):
+    if (programm[i] == 99):
         break
 
     i += 1
