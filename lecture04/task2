@@ -1,0 +1,34 @@
+from random import randint, shuffle
+
+rand_numbers = []
+N = 0
+
+try:
+    N = int(input("Введите кол-во случайных целых чисел из которых будет состоять ваш список: "))
+except:
+    print("Кол-во чисел должно быть целым числом")
+    exit()
+
+
+for i in range(N):
+    rand_numbers.append(randint(0, N))
+
+print(rand_numbers)
+
+i = 0
+j = 0
+
+for j in range(N - 1):
+    f = 0
+    for i in range(N - 1 - j):
+        if(rand_numbers[i] > rand_numbers[i+1]):
+            rand_numbers[i], rand_numbers[i+1] = rand_numbers[i+1], rand_numbers[i]
+            f = 1
+    i += 1
+    if f == 0:
+        break
+j += 1
+
+print(rand_numbers)
+
+
