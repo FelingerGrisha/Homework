@@ -1,0 +1,44 @@
+# Примеры функций
+def Parabola(x):
+    return x**2
+
+def Line(x):
+    return 2*x
+
+
+start = input("Введите точку начала отрезка: ")
+end = input("Введите точку конца отрезка: ")
+
+def Extremum(func, a, b):
+
+    point_minextremum = a - 1
+    point_maxextremum = b + 1
+
+    for i in range(a, b):
+        if(func(point_maxextremum) <= func(i)):
+            point_maxextremum = i
+
+        if(func(point_minextremum) >= func(i)):
+            point_minextremum = i
+
+    if(point_maxextremum != (b + 1)):
+        max_extremum = func(point_maxextremum)
+    else:
+        max_extremum = None
+    if(point_minextremum != (a -1)):
+        min_extremum = func(point_minextremum)
+    else:
+        min_extremum = None
+
+    return max_extremum, min_extremum
+
+
+try:
+    Max_extremum, Min_extremum = Extremum(Parabola, start, end)
+except:
+    print("Точки начала и конца отрезка должны быть числами")
+    exit()
+
+print(f'Экстремум максимума функциии: {Max_extremum} \nЭкстремум минимума функции: {Min_extremum}')
+
+
