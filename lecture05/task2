@@ -1,0 +1,31 @@
+str = input("Введите строку вида: NDM;\nгде N - это количество кубиков,\nа M - это количество сторона этого кубика.\nПричём каждая сторона пронумерована от 1 до M.\n")
+
+numbers = 0
+N = 0
+M = 0
+
+try:
+    numbers = map(int, str.split("d"))
+    N, M = numbers
+except:
+    print("Вы ввели неверные данные, вы должны ввести строку NDM, где N и M - числа")
+    exit()
+
+
+def count_of_variants(suma, M, N):
+
+    count = 0
+
+    for i in range(1, M+1):
+        raznost = suma - i
+        if(raznost >= 1 and raznost <= M):
+            count += 1
+    if(N == 1):
+       return 0
+
+    return count + count_of_variants(suma, M, N - 1)
+
+for i in range(N, M*N+1):
+     print(f'{i} = {(count_of_variants(i, M, N) * (1 / M)**N) * 100} %')
+
+
