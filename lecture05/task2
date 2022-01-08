@@ -9,23 +9,41 @@ try:
     N, M = numbers
 except:
     print("Вы ввели неверные данные, вы должны ввести строку NDM, где N и M - числа")
+    input()
     exit()
 
+if N == 1:
+    Sums = []
+    for i in range(1, M + 1):
+        Sums.append(i)
 
-def count_of_variants(suma, M, N):
+if N > 1:
+    Sums = []
+    for i in range(M):
+        element = 2 + i
+        for i in range(M):
+            Sums.append(element + i)
 
-    count = 0
+if N > 2:
+    for w in range(3, N + 1):
+        Sums2 = []
+        for i in range(1, M + 1):
+            for l in range(len(Sums)):
+                Sums2.append(Sums[l] + i)
 
-    for i in range(1, M+1):
-        raznost = suma - i
-        if(raznost >= 1 and raznost <= M):
-            count += 1
-    if(N == 1):
-       return 0
+        Sums = Sums2
 
-    return count + count_of_variants(suma, M, N - 1)
+Sums = sorted(Sums)
 
-for i in range(N, M*N+1):
-     print(f'{i} = {(count_of_variants(i, M, N) * (1 / M)**N) * 100} %')
+def calcAndShow_probabilities(Sums, suma):
+    chance = round((Sums.count(suma) / len(Sums)) * 100, 2)
+    print(f"{suma} = {chance} %")
 
 
+for i in range(len(Sums) - 1):
+    if Sums[i] != Sums[i + 1]:
+        calcAndShow_probabilities(Sums, Sums[i])
+if Sums[-1] != Sums[-2]:
+    calcAndShow_probabilities(Sums, Sums[-1])
+
+input()
