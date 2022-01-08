@@ -1,0 +1,99 @@
+def multiplie_with_number(number, epsilon: list):
+
+    multiplied_matrix = []
+
+    multiplied_matrix.append(number * epsilon[0])
+    multiplied_matrix.append(number * epsilon[1])
+    multiplied_matrix.append(number * epsilon[2])
+    multiplied_matrix.append(number * epsilon[3])
+
+    minuend = multiplied_matrix[0] * multiplied_matrix[2]
+    subtrahend = multiplied_matrix[1] * multiplied_matrix[3]
+
+    opredelitel = minuend - subtrahend
+
+    return opredelitel
+
+
+class Dual:
+
+    epsilon = [0, 1, 0, 0]
+
+    def __init__(self):
+
+        self._value = []
+        a = input("Введите в вашем дуальном числе коэффициент a: ").strip()
+        b = input("Введите в вашем дуальном числе коэффициент b: ").strip()
+
+        try:
+            a = float(a)
+
+        except:
+            print("Коэффициент a должен быть вещественным числом")
+            input()
+            exit()
+
+        try:
+            b = float(b)
+
+        except:
+            print("Коэффициент b должен быть вещественным числом")
+            input()
+            exit()
+
+        self._value.append(a)
+        self._value.append(b)
+        self._value.append(0)
+        self._value.append(a)
+
+    def __add__(self, other):
+
+        slagaemoe = self._value[1] + other._value[1]
+        resultAdd = (self._value[0] + other._value[0]) + multiplie_with_number(slagaemoe, self.epsilon)
+
+        return resultAdd
+
+    def __radd__(self, other):
+
+        slagaemoe = other._value[1] + self._value[1]
+        resultRadd = (other._value[0] + self._value[0]) + multiplie_with_number(slagaemoe, self.epsilon)
+
+        return resultRadd
+
+    def __sub__(self, other):
+
+        slagaemoe = self._value[1] - other._value[1]
+        resultSub = (self._value[0] - other._value[0]) + multiplie_with_number(slagaemoe, self.epsilon)
+
+        return resultSub
+
+    def __rsub__(self, other):
+
+        slagaemoe = other._value[1] - self._value[1]
+        resultRsub = (other._value[0] - self._value[0]) + multiplie_with_number(slagaemoe, self.epsilon)
+
+        return resultRsub
+
+    def __mul__(self, other):
+
+        slagaemoe = self._value[1] * other._value[0] + self._value[0] * other._value[1]
+        resultMul = (self._value[0] * other._value[0]) + multiplie_with_number(slagaemoe, self.epsilon)
+
+        return resultMul
+
+    def __rmul__(self, other):
+
+        slagaemoe = other._value[1] * self._value[0] + other._value[0] * self._value[1]
+        resultRmul = (other._value[0] * self._value[0]) + multiplie_with_number(slagaemoe, self.epsilon)
+
+        return resultRmul
+
+
+dualNumber1 = Dual()
+dualNumber2 = Dual()
+
+print(dualNumber1 + dualNumber2)
+print(dualNumber1 - dualNumber2)
+print(dualNumber1 * dualNumber2)
+
+input()
