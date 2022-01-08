@@ -20,7 +20,7 @@ class LinearSpline(Spline):
         try:
             count = int(count)
         except:
-            print("Кол-во пар точек (x, y) должно быть целым или вещественным числом")
+            print("Кол-во пар точек (x, y) должно быть целым числом")
             input()
             exit()
 
