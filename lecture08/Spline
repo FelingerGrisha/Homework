@@ -1,0 +1,71 @@
+class Spline:
+
+    def __init__(self):
+        raise NotImplementedError()
+
+    def __call__(self):
+        raise NotImplementedError()
+
+
+
+class LinearSpline(Spline):
+
+
+    def __init__(self):
+
+        self.points = []
+        count = input("Введите кол-во пар точек (x, y): ").strip()
+
+        try:
+            count = int(count)
+        except:
+            print("Кол-во пар точек (x, y) должно быть целым или вещественным числом")
+            input()
+            exit()
+
+        for i in range(count):
+
+            self.points.append(input("Введите пару точек (x, y): ").strip(" ()"))
+            self.points[i] = self.points[i].split(",")
+
+            try:
+                self.points[i] = {f"x{i}": float(self.points[i][0].strip()), f"y{i}": float(self.points[i][1].strip())}
+            except:
+                print("Координаты должны быть парой вещественных или целых чисел записанных так: (x, y) или так: x, y")
+                input()
+                exit()
+
+    def __call__(self, x: float):
+
+        self.y = []
+        self.b = []
+        self.k = []
+
+        for i in range(len(self.points) - 1):
+            k = round((self.points[i + 1][f"y{i + 1}"] - self.points[i][f"y{i}"])/(self.points[i + 1][f"x{i + 1}"] - self.points[i][f"x{i}"]))
+            self.k.append(k)
+            b = round((self.points[i][f"y{i}"] * self.points[i + 1][f"x{i + 1}"] - self.points[i + 1][f"y{i + 1}"] * self.points[i][f"x{i}"])/(self.points[i + 1][f"x{i + 1}"] - self.points[i][f"x{i}"]))
+            self.b.append(b)
+            y = self.k[i] * x + self.b[i]
+            self.y.append(y)
+
+        return self.points, self.y
+
+
+
+x = input("Введите x: ").strip()
+
+try:
+    x = float(x)
+except:
+    print("Координата x доолжна быть целым или вещественным числом")
+    input()
+    exit()
+
+test = LinearSpline()
+points, y = test(x)
+
+print(points)
+print(y)
+
+input()
