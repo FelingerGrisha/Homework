@@ -38,18 +38,14 @@ class LinearSpline(Spline):
     def __call__(self, x: float):
 
         self.y = []
-        self.b = []
-        self.k = []
 
         for i in range(len(self.points) - 1):
-            k = round((self.points[i + 1][f"y{i + 1}"] - self.points[i][f"y{i}"])/(self.points[i + 1][f"x{i + 1}"] - self.points[i][f"x{i}"]))
-            self.k.append(k)
+            k = round((self.points[i + 1][f"y{i + 1}"] - self.points[i][f"y{i}"])/(self.points[i + 1][f"x{i + 1}"] - self.points[i][f"x{i}"])
             b = round((self.points[i][f"y{i}"] * self.points[i + 1][f"x{i + 1}"] - self.points[i + 1][f"y{i + 1}"] * self.points[i][f"x{i}"])/(self.points[i + 1][f"x{i + 1}"] - self.points[i][f"x{i}"]))
-            self.b.append(b)
-            y = self.k[i] * x + self.b[i]
+            y = k * x + b
             self.y.append(y)
 
-        return self.points, self.y
+        return self.y
 
 
 
@@ -63,9 +59,8 @@ except:
     exit()
 
 test = LinearSpline()
-points, y = test(x)
+y = test(x)
 
-print(points)
 print(y)
 
 input()
